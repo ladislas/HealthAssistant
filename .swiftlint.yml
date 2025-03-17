@@ -1,0 +1,42 @@
+# Health Assistant App
+# Copyright ACME Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+opt_in_rules: []
+
+trailing_comma:
+  mandatory_comma: true
+
+type_name:
+  min_length: 4 # only warning
+  max_length: # only warning
+    warning: 40
+  allowed_symbols: ["_"] # these are allowed in type names
+  excluded:
+    - i18n
+    - l10n
+
+identifier_name:
+  min_length: 4 # only warning
+  excluded:
+    - i
+    - j
+    - k
+    - id
+    - url
+
+line_length:
+  warning: 150
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_interpolated_strings: true
+
+disabled_rules:
+  - opening_brace
+  - switch_case_alignment
+  - closure_parameter_position
+
+excluded:
+  - Tuist/.build
+
+reporter: "emoji"
