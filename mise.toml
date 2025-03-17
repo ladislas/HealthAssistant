@@ -1,0 +1,8 @@
+# Health Assistant App
+# Copyright ACME Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+[tools]
+swiftlint = "0.58.2"
+tuist = "4.44.3"
+swiftformat = "0.55.5"
