@@ -1,0 +1,81 @@
+# Health Assistant App
+# Copyright ACME Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+# macOS
+
+## General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Icon must end with two \r
+Icon
+
+
+## Thumbnails
+._*
+
+## Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+# Xcode
+
+## User settings
+xcuserdata/
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+## Projects
+*.xcodeproj
+*.xcworkspace
+
+## Build
+.build/
+
+
+# Fastlane
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+
+# Tuist
+
+## Derived
+graph.dot
+graph.png
+graph.json
+Derived/
+
+## Dependencies
+Tuist/Dependencies
+
+## Signing
+Tuist/Signing
