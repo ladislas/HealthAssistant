@@ -12,6 +12,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  GITHUB_TOKEN: ${{ secrets.REPO_PAT_TOKEN }}
+
 jobs:
   swift_format:
     name: pre-commit hooks
