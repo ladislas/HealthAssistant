@@ -53,6 +53,12 @@ struct SettingsView: View {
 #Preview {
     @Previewable var authManagerViewModel = AuthManagerViewModel()
 
-    SettingsView()
-        .environment(authManagerViewModel)
+    TabView {
+        Tab("Settings", systemImage: "gear") {
+            NavigationStack {
+                SettingsView()
+            }
+        }
+    }
+    .environment(authManagerViewModel)
 }

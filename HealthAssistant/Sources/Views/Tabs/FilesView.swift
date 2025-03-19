@@ -6,13 +6,22 @@ import SwiftUI
 
 struct FilesView: View {
     var body: some View {
-        Text("Files View")
-            .font(.largeTitle)
-            .bold()
-            .foregroundColor(.orange)
+        VStack {
+            Text("Files View")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(.orange)
+        }
+        .navigationTitle("Files")
     }
 }
 
 #Preview {
-    FilesView()
+    TabView {
+        Tab("Files", systemImage: "doc") {
+            NavigationStack {
+                FilesView()
+            }
+        }
+    }
 }

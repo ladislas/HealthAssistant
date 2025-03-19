@@ -16,13 +16,18 @@ public struct MainView: View {
     public var body: some View {
         TabView(selection: self.$viewModel.selectedTab) {
             Tab("Files", systemImage: "doc", value: .files) {
-                FilesView()
+                NavigationStack {
+                    FilesView()
+                }
             }
 
             Tab("Settings", systemImage: "gear", value: .settings) {
-                SettingsView()
+                NavigationStack {
+                    SettingsView()
+                }
             }
         }
+        .tabViewStyle(.sidebarAdaptable)
     }
 
     // MARK: Private
@@ -31,5 +36,8 @@ public struct MainView: View {
 }
 
 #Preview {
+    @Previewable var authManagerViewModel = AuthManagerViewModel()
+
     MainView()
+        .environment(authManagerViewModel)
 }
