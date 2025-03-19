@@ -1,0 +1,64 @@
+# Health Assistant App
+# Copyright ACME Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+name: Tuist - Build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.swift"
+      - "mise.toml"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.swift"
+      - "mise.toml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.REPO_PAT_TOKEN }}
+
+jobs:
+  build:
+    name: build
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up mise
+        uses: jdx/mise-action@v2
+        with:
+          version: 2025.3.6
+          install: true
+          cache: true
+
+      - name: Config Xcode
+        run: |
+          xcodes select 16.2
+
+      - name: Tuist health check
+        run: |
+          which tuist
+          tuist version
+
+      - name: tuist install
+        run: |
+          tuist install
+
+      - name: tuist generate
+        run: |
+          tuist generate --no-open
+
+      - name: tuist build
+        run: |
+          tuist build
