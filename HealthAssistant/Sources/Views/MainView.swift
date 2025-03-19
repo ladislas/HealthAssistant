@@ -4,20 +4,6 @@
 
 import SwiftUI
 
-// MARK: - MainViewTabs
-
-enum MainViewTabs: Hashable {
-    case files
-    case profile
-}
-
-// MARK: - MainViewViewModel
-
-@Observable
-class MainViewViewModel {
-    var selectedTab: MainViewTabs = .files
-}
-
 // MARK: - MainView
 
 public struct MainView: View {
@@ -33,8 +19,8 @@ public struct MainView: View {
                 FilesView()
             }
 
-            Tab("Profile", systemImage: "person.crop.circle.fill", value: .profile) {
-                ProfileView()
+            Tab("Settings", systemImage: "gear", value: .settings) {
+                SettingsView()
             }
         }
     }

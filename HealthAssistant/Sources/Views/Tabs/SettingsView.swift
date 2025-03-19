@@ -4,15 +4,15 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct SettingsView: View {
     var body: some View {
-        Text("Profile View")
+        Text("Settings View")
             .font(.largeTitle)
             .bold()
-            .foregroundColor(.teal)
+            .foregroundColor(.pink)
     }
 }
 
 #Preview {
-    ProfileView()
+    SettingsView()
 }
