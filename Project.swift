@@ -22,7 +22,16 @@ let project = Project(
             ),
             sources: ["HealthAssistant/Sources/**"],
             resources: ["HealthAssistant/Resources/**"],
-            dependencies: []
+            dependencies: [
+                .external(name: "FirebaseCore"),
+                .external(name: "FirebaseAuth"),
+                .external(name: "FirebaseAuthCombine-Community"),
+            ],
+            settings: Settings.settings(base: [
+                "OTHER_LDFLAGS": [
+                    "-ObjC",
+                ],
+            ])
         ),
         .target(
             name: "HealthAssistantTests",
