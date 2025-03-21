@@ -7,11 +7,10 @@ import Foundation
 final class LocalStorageUserManager: UserManagementProtocol {
     // MARK: Internal
 
-    func createUser(id: String, displayName: String? = nil) async throws -> UserModel {
+    func createUser(id: String) async throws -> UserModel {
         let now = Date.now
         let user = UserModel(
             id: id,
-            displayName: displayName,
             createdAt: now
         )
 
@@ -32,7 +31,6 @@ final class LocalStorageUserManager: UserManagementProtocol {
     func updateUser(_ user: UserModel) async throws {
         let updatedUser = UserModel(
             id: user.id,
-            displayName: user.displayName,
             createdAt: user.createdAt,
             updatedAt: Date.now
         )

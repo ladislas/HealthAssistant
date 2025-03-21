@@ -9,9 +9,8 @@ import Foundation
 struct UserModel: Codable, Identifiable {
     // MARK: Lifecycle
 
-    init(id: String, displayName: String? = nil, createdAt: Date, updatedAt: Date? = nil) {
+    init(id: String, createdAt: Date, updatedAt: Date? = nil) {
         self.id = id
-        self.displayName = displayName
         self.createdAt = createdAt
         self.updatedAt = updatedAt ?? createdAt
     }
@@ -19,7 +18,6 @@ struct UserModel: Codable, Identifiable {
     // MARK: Internal
 
     let id: String // TODO: (@ladislas) replace by firebase uid
-    var displayName: String?
     let createdAt: Date
     let updatedAt: Date
 }
