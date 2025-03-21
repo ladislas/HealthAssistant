@@ -26,6 +26,7 @@ let project = Project(
                 .external(name: "FirebaseCore"),
                 .external(name: "FirebaseAuth"),
                 .external(name: "FirebaseAuthCombine-Community"),
+                .external(name: "Alamofire"),
             ],
             settings: Settings.settings(base: [
                 "OTHER_LDFLAGS": [
