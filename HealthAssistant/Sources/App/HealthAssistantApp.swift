@@ -2,13 +2,19 @@
 // Copyright ACME Corporation
 // SPDX-License-Identifier: Apache-2.0
 
+import FirebaseCore
 import SwiftUI
 
 @main
 struct HealthAssistantApp: App {
-    // MARK: Internal
+    // MARK: Lifecycle
 
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    init() {
+        FirebaseApp.configure()
+        self.authManager = AuthManager()
+    }
+
+    // MARK: Internal
 
     var body: some Scene {
         WindowGroup {
@@ -23,5 +29,5 @@ struct HealthAssistantApp: App {
 
     // MARK: Private
 
-    @State private var authManager = AuthManager()
+    @State private var authManager: AuthManager
 }

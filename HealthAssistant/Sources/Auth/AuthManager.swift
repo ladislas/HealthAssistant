@@ -24,6 +24,14 @@ class AuthManager {
         self.uid = uid
         self.errorMessage = errorMessage
         self.isLoading = isLoading
+
+        self.initializeAuth()
+    }
+
+    deinit {
+        if let authStateHandler {
+            Auth.auth().removeStateDidChangeListener(authStateHandler)
+        }
     }
 
     // MARK: Internal
@@ -34,6 +42,31 @@ class AuthManager {
     var uid = ""
     var errorMessage = ""
     var isLoading = false
+
+    func initializeAuth() {
+        self.checkAuthState()
+
+        self.authStateHandler = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            guard let self else { return }
+            self.isAuthenticated = user != nil
+            self.uid = user?.uid ?? ""
+            if let email = user?.email {
+                self.email = email
+            }
+        }
+    }
+
+    func checkAuthState() {
+        if let currentUser = Auth.auth().currentUser {
+            self.isAuthenticated = true
+            self.uid = currentUser.uid
+            self.email = currentUser.email ?? ""
+            print("User is already signed in: \(currentUser.uid)")
+        } else {
+            self.isAuthenticated = false
+            self.uid = ""
+        }
+    }
 
     func signIn() async {
         defer {
@@ -88,4 +121,8 @@ class AuthManager {
             return false
         }
     }
+
+    // MARK: Private
+
+    private var authStateHandler: AuthStateDidChangeListenerHandle?
 }
