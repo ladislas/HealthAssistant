@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class LocalStorageUserDocumentManagerModel: UserDocumentManagementProtocol {
+final class LocalStorageUserDocumentManager: UserDocumentManagementProtocol {
     // MARK: Internal
 
     func addDocument(_ document: UserDocumentModel, for uid: String) async throws {

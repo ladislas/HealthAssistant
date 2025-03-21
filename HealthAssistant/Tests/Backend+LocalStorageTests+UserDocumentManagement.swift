@@ -15,9 +15,9 @@ struct Backend_LocalStorageTests_UserDocumentManagement {
 
         // When
         let expectedDocument = document
-        try await LocalStorageUserDocumentManagerModel().addDocument(document, for: userId)
+        try await LocalStorageUserDocumentManager().addDocument(document, for: userId)
 
-        let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+        let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
 
         // Then
         #expect(documentList.contains(expectedDocument))
@@ -30,14 +30,14 @@ struct Backend_LocalStorageTests_UserDocumentManagement {
 
         // When
         do {
-            try await LocalStorageUserDocumentManagerModel().addDocument(document, for: userId)
-            let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+            try await LocalStorageUserDocumentManager().addDocument(document, for: userId)
+            let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
 
             #expect(documentList.contains(document))
         }
 
-        try await LocalStorageUserDocumentManagerModel().deleteDocument(documentId: document.id, for: userId)
-        let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+        try await LocalStorageUserDocumentManager().deleteDocument(documentId: document.id, for: userId)
+        let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
 
         // Then
         #expect(!documentList.contains(document))
@@ -49,15 +49,15 @@ struct Backend_LocalStorageTests_UserDocumentManagement {
         let document = UserDocumentModel(id: "document_id", name: "Document Title", content: "Document Content")
 
         // When
-        try await LocalStorageUserDocumentManagerModel().addDocument(document, for: userId)
-        try await LocalStorageUserDocumentManagerModel().deleteAllDocuments(for: userId)
+        try await LocalStorageUserDocumentManager().addDocument(document, for: userId)
+        try await LocalStorageUserDocumentManager().deleteAllDocuments(for: userId)
 
         do {
-            let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+            let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
             #expect(documentList.isEmpty)
         }
 
-        let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+        let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
 
         // Then
         #expect(documentList.isEmpty)
@@ -72,13 +72,13 @@ struct Backend_LocalStorageTests_UserDocumentManagement {
 
         let originalDocument = UserDocumentModel(id: originalDocumentId, name: originalDocumentName, content: "")
 
-        try await LocalStorageUserDocumentManagerModel().addDocument(originalDocument, for: userId)
+        try await LocalStorageUserDocumentManager().addDocument(originalDocument, for: userId)
 
         // When
-        try await LocalStorageUserDocumentManagerModel().renameDocument(documentId: originalDocumentId, newName: renamedDocumentName, for: userId)
+        try await LocalStorageUserDocumentManager().renameDocument(documentId: originalDocumentId, newName: renamedDocumentName, for: userId)
 
         // Then
-        let documentList = try await LocalStorageUserDocumentManagerModel().fetchDocuments(for: userId)
+        let documentList = try await LocalStorageUserDocumentManager().fetchDocuments(for: userId)
         let renamedDocument = try #require(documentList.first { $0.id == originalDocumentId })
 
         #expect(renamedDocument.name == renamedDocumentName)
