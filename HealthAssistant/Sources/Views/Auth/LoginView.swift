@@ -8,28 +8,65 @@ struct LoginView: View {
     // MARK: Internal
 
     var body: some View {
-        VStack {
-            Text("Login View")
+        VStack(spacing: 20) {
+            Spacer()
+            Text("Health Assistant")
                 .font(.largeTitle)
                 .bold()
                 .foregroundColor(.indigo)
+                .padding(.bottom, 30)
+
+            VStack(spacing: 15) {
+                @Bindable var authManager = self.authManager
+
+                TextField("Email", text: $authManager.email)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled()
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+
+                SecureField("Password", text: $authManager.password)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+
+            if !self.authManager.errorMessage.isEmpty {
+                Text(self.authManager.errorMessage)
+                    .foregroundColor(.red)
+                    .font(.caption)
+            }
 
             Button {
-                self.authManagerViewModel.isAuthenticated = true
+                Task {
+                    await self.authManager.signIn()
+                }
             } label: {
-                Text("Login")
-                    .padding(.horizontal, 20)
+                if self.authManager.isLoading {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Text("Login")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
             }
             .buttonStyle(.borderedProminent)
+            .disabled(self.authManager.isLoading)
+            .padding(.horizontal)
 
             Button {
                 self.showSignUpView = true
+            } label: {
+                Text("Don't have an account? Sign Up")
+                    .foregroundColor(.indigo)
             }
-            label: {
-                Text("Sign Up")
-                    .padding(.horizontal, 20)
-            }
-            .buttonStyle(.bordered)
+            .padding(.top, 10)
+
+            Spacer()
         }
         .sheet(isPresented: self.$showSignUpView) {
             SignUpView()
@@ -40,12 +77,12 @@ struct LoginView: View {
 
     @State private var showSignUpView = false
 
-    @Environment(AuthManagerViewModel.self) private var authManagerViewModel
+    @Environment(AuthManager.self) private var authManager
 }
 
 #Preview {
-    @Previewable var authManagerViewModel = AuthManagerViewModel()
+    @Previewable var authManager = AuthManager()
 
     LoginView()
-        .environment(authManagerViewModel)
+        .environment(authManager)
 }

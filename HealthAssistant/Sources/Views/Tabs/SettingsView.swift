@@ -12,7 +12,7 @@ struct SettingsView: View {
             List {
                 Section(header: Text("General")) {
                     LabeledContent("Connected") {
-                        if self.authManagerViewModel.isAuthenticated {
+                        if self.authManager.isAuthenticated {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundStyle(.green)
                         } else {
@@ -21,19 +21,22 @@ struct SettingsView: View {
                         }
                     }
 
-                    LabeledContent("Email", value: "john.doe@acme.com")
+                    LabeledContent("Email", value: self.authManager.email)
+
+                    LabeledContent("UID") {
+                        Text(self.authManager.uid)
+                            .monospaced()
+                    }
                 }
 
                 Section {
                     Button {
-                        self.authManagerViewModel.isAuthenticated = false
-                        // TODO: (@ladislas) logout
+                        self.authManager.signOut()
                     } label: {
                         Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
                     }
 
                     Button(role: .destructive) {
-                        self.authManagerViewModel.isAuthenticated = false
                         // TODO: (@ladislas) delete account
                     } label: {
                         Label("Delete Account", systemImage: "trash")
@@ -47,11 +50,11 @@ struct SettingsView: View {
 
     // MARK: Private
 
-    @Environment(AuthManagerViewModel.self) private var authManagerViewModel
+    @Environment(AuthManager.self) private var authManager
 }
 
 #Preview {
-    @Previewable var authManagerViewModel = AuthManagerViewModel()
+    @Previewable var authManager = AuthManager.mock
 
     TabView {
         Tab("Settings", systemImage: "gear") {
@@ -60,5 +63,5 @@ struct SettingsView: View {
             }
         }
     }
-    .environment(authManagerViewModel)
+    .environment(authManager)
 }

@@ -8,18 +8,20 @@ import SwiftUI
 struct HealthAssistantApp: App {
     // MARK: Internal
 
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             MainView()
-                .sheet(isPresented: !self.$authManagerViewModel.isAuthenticated) {
+                .sheet(isPresented: !self.$authManager.isAuthenticated) {
                     LoginView()
                         .interactiveDismissDisabled()
                 }
         }
-        .environment(self.authManagerViewModel)
+        .environment(self.authManager)
     }
 
     // MARK: Private
 
-    @State private var authManagerViewModel = AuthManagerViewModel()
+    @State private var authManager = AuthManager()
 }

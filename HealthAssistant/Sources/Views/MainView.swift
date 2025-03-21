@@ -36,8 +36,8 @@ public struct MainView: View {
 }
 
 #Preview {
-    @Previewable var authManagerViewModel = AuthManagerViewModel()
+    @Previewable var authManager = AuthManager()
 
     MainView()
-        .environment(authManagerViewModel)
+        .environment(authManager)
 }
